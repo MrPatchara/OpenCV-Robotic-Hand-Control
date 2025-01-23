@@ -27,6 +27,26 @@ class HandTrackingApp:
 
         self.create_gui()
 
+    # Show circuit diagram picture.png in a new window
+    def show_circuit_diagram(self):
+        circuit_diagram = tk.Toplevel(self.root)
+        circuit_diagram.title("Circuit Diagram")
+        circuit_diagram.geometry("900x600")
+        circuit_diagram.config(bg=self.bg_color)
+
+        # Add image on title bar
+        icon = tk.PhotoImage(file="circuit.png")
+        circuit_diagram.iconphoto(False, icon)
+
+        # Load circuit diagram image
+        circuit_diagram_image = Image.open("Picture1.png")
+        # Resize image automatically to fit the window
+        circuit_diagram_image.thumbnail((900, 600))
+        circuit_diagram_image_tk = ImageTk.PhotoImage(circuit_diagram_image)
+        circuit_diagram_label = tk.Label(circuit_diagram, image=circuit_diagram_image_tk, bg=self.bg_color)
+        circuit_diagram_label.image = circuit_diagram_image_tk
+        circuit_diagram_label.pack()
+
     # Create GUI elements
     def create_gui(self):
 
@@ -36,9 +56,18 @@ class HandTrackingApp:
 
         # Menu bar with dark retro theme
         menu_bar = tk.Menu(self.root, bg=self.bg_color, fg=self.fg_color)
+
         file_menu = tk.Menu(menu_bar, tearoff=0, bg=self.bg_color, fg=self.fg_color)
+        file_menu.add_command(label="About", command=lambda: messagebox.showinfo("About", "This is a Hand Tracking App using OpenCV and HandTrackingModule by CVZone." + "\n" + "\n"+ "Materials: ESP-32, Camera Module, and Robotic Hand 3D Print" + "\n" + "Version: 1.0" + "\n" + "\n" + "**Not for commercial use."))
+        file_menu.add_separator()
+
+        # Add a command to show the circuit diagram picture.png in a new window
+        file_menu.add_command(label="Circuit Diagram", command=self.show_circuit_diagram)
+        file_menu.add_separator()
+        
         file_menu.add_command(label="Contact Us", command=lambda: messagebox.showinfo("Contact Us", "Mr. Patchara Al-umaree" + "\n" + "Email:Patcharaalumaree@gmail.com" + "\n" + "Phone:+66960614238"))
-        menu_bar.add_cascade(label="Help!", menu=file_menu)
+        menu_bar.add_cascade(label="Menu", menu=file_menu)
+        
         
 
         settings_menu = tk.Menu(menu_bar, tearoff=0, bg=self.bg_color, fg=self.fg_color)
@@ -77,16 +106,16 @@ class HandTrackingApp:
         self.image_frame.grid(row=0, column=1, padx=10, pady=10)
 
         # Load an image (replace with your own image path)
-        self.image = Image.open("your_image_path.png")  # Replace with your image path
-        self.image = self.image.resize((350, 350))  # Resize image as needed
+        self.image = Image.open("your_image_path.jpg")  # Replace with your image path
+        self.image = self.image.resize((380, 480))  # Resize image as needed
         self.image_tk = ImageTk.PhotoImage(self.image)
         self.image_label = tk.Label(self.image_frame, image=self.image_tk, bg=self.bg_color)
 
         # Serial output frame
         self.serial_output_frame = tk.Frame(self.main_frame, bg=self.bg_color)
         self.serial_output_frame.grid(row=0, column=2, padx=10, pady=10, sticky="ns")
-
-        self.serial_output_label = tk.Label(self.serial_output_frame, text="Serial Output to Microcontroller", font=("Press Start 2P", 14), fg=self.fg_color, bg=self.bg_color)
+        
+        self.serial_output_label = tk.Label(self.serial_output_frame, text="Serial Output", font=("Press Start 2P", 14), fg=self.fg_color, bg=self.bg_color)
         self.serial_output_label.pack()
 
         self.serial_output_text = tk.Text(self.serial_output_frame, width=30, height=20, state="disabled", fg=self.fg_color, bg="#2d3539", font=("Courier", 12))
@@ -113,6 +142,10 @@ class HandTrackingApp:
         settings_window.title("Select COM Port")
         settings_window.geometry("300x150")
         settings_window.config(bg=self.bg_color)
+
+        # Add image on title bar
+        icon = tk.PhotoImage(file="com.png")
+        settings_window.iconphoto(False, icon)
 
         tk.Label(settings_window, text="Select COM Port:", fg=self.fg_color, bg=self.bg_color, font=("Press Start 2P", 12)).pack(pady=10)
         available_ports = [port.device for port in serial.tools.list_ports.comports()]
