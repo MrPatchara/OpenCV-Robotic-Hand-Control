@@ -45,6 +45,24 @@ This project enables real-time control of a robotic hand using computer vision a
 
 ---
 
+## 🔌 Circuit Diagram
+
+<div align="center">
+
+### 📐 Complete Wiring Schematic
+
+<a href="code_openCV/Picture1.png">
+  <img src="code_openCV/Picture1.png" alt="Circuit Diagram" width="90%">
+</a>
+
+**ESP32 Robotic Hand Circuit Diagram**
+
+*Click the image to view in full size. This diagram shows the complete wiring connections between ESP32, servo motors, and power supply.*
+
+</div>
+
+---
+
 ## 🚀 Features
 
 ### Hand Tracking System
@@ -167,6 +185,16 @@ pip install opencv-python cvzone pillow pyserial
 ---
 
 ## 🔌 Hardware Configuration
+
+### Circuit Diagram Reference
+
+<div align="center">
+
+![Circuit Diagram](code_openCV/Picture1.png)
+
+*Refer to the detailed circuit diagram above for complete wiring instructions*
+
+</div>
 
 ### ESP32 Pin Connections
 
